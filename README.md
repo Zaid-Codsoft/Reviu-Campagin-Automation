@@ -57,6 +57,11 @@ The Reviu.pk Lead Generation System features a modern, intuitive web dashboard t
 - **Real-time Updates**: Live data refresh and status updates
 - **Professional Icons**: Intuitive visual indicators for all functions
 
+### **Dashboard Screenshot**
+![Reviu.pk Lead Generation System Dashboard](Screenshot_23-8-2025_233954_127.0.0.1.jpeg)
+
+*The dashboard shows the complete lead generation workflow with real-time metrics, data tables, and action controls.*
+
 ## 🏗️ Architecture
 
 ```
