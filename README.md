@@ -58,7 +58,7 @@ The Reviu.pk Lead Generation System features a modern, intuitive web dashboard t
 - **Professional Icons**: Intuitive visual indicators for all functions
 
 ### **Dashboard Screenshot**
-![Reviu.pk Lead Generation System Dashboard](Screenshot_23-8-2025_233954_127.0.0.1.jpeg)
+![Reviu.pk Lead Generation System Dashboard](https://raw.githubusercontent.com/Zaid-Codsoft/Reviu-Campagin-Automation/master/Screenshot_23-8-2025_233954_127.0.0.1.jpeg)
 
 *The dashboard shows the complete lead generation workflow with real-time metrics, data tables, and action controls.*
 
@@ -107,12 +107,7 @@ The Reviu.pk Lead Generation System features a modern, intuitive web dashboard t
 3. **Set up environment variables**
    Create a `.env` file with:
    ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
-   SMTP_SERVER=smtpout.secureserver.net
-   SMTP_PORT=465
-   SMTP_USERNAME=info@reviu.pk
-   SMTP_PASSWORD=your_smtp_password
-   FLASK_SECRET_KEY=your_secret_key_here
+   
    ```
 
 4. **Run the application**
