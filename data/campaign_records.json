@@ -1,0 +1,83 @@
+{
+  "campaigns": [
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T02:07:28.902898"
+    },
+    {
+      "action": "leads_generated",
+      "count": 1,
+      "success_count": 0,
+      "timestamp": "2025-08-24T02:37:16.991011"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:19:31.003332"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:24:23.180425"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:28:22.292454"
+    },
+    {
+      "action": "emails_sent",
+      "count": 10,
+      "success_count": 10,
+      "timestamp": "2025-08-24T03:30:20.884936"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:36:27.888776"
+    },
+    {
+      "action": "emails_sent",
+      "count": 10,
+      "success_count": 10,
+      "timestamp": "2025-08-24T03:38:52.831334"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:39:48.263328"
+    },
+    {
+      "action": "emails_sent",
+      "count": 10,
+      "success_count": 10,
+      "timestamp": "2025-08-24T03:42:08.647536"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:48:56.568820"
+    },
+    {
+      "action": "leads_generated",
+      "count": 10,
+      "success_count": 0,
+      "timestamp": "2025-08-24T03:50:50.927833"
+    }
+  ],
+  "statistics": {
+    "total_campaigns": 3,
+    "total_leads_generated": 81,
+    "total_emails_sent": 30,
+    "success_rate": 100.0
+  },
+  "last_updated": "2025-08-24T03:50:50.927844"
+}

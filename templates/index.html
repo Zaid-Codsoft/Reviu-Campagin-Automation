@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviu.pk - Professional Lead Generation System</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stats-card {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+        }
+        
+        .btn-success {
+            background: linear-gradient(45deg, #56ab2f 0%, #a8e6cf 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+        }
+        
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .loading {
+            display: none;
+        }
+        
+        .alert-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Alert Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <i class="fas fa-rocket me-3"></i>
+                        Reviu.pk Lead Generation System
+                    </h1>
+                    <p class="lead mb-4">
+                        Professional lead generation with intelligent business matching, personalized email generation, and automated outreach campaigns.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="fw-bold" id="categoryCount">15</h3>
+                                <small>Business Categories</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="fw-bold" id="cityCount">10</h3>
+                                <small>Pakistani Cities</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="fw-bold" id="leadsCount">0</h3>
+                                <small>Leads Generated</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h3 class="fw-bold" id="emailsCount">0</h3>
+                                <small>Emails Created</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card feature-card bg-white text-dark">
+                        <div class="card-body text-center">
+                            <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                            <h5>Campaign Statistics</h5>
+                            <div id="campaignStats">
+                                <p class="text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Lead Generation Form -->
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card feature-card">
+                                                <div class="card-header bg-primary text-white text-center">
+                                <h4 class="mb-0">
+                                    <i class="fas fa-gem me-2"></i>
+                                    Gemini AI Lead Generation
+                                </h4>
+                            </div>
+                    <div class="card-body">
+                        <!-- AI Toggle -->
+                        <div class="row mb-3">
+                            <div class="col-12 text-center">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input class="form-check-input" type="checkbox" id="aiToggle" checked>
+                                                                        <label class="form-check-label fw-bold" for="aiToggle">
+                                        <i class="fas fa-gem me-2"></i>
+                                        Gemini AI Generation
+                                    </label>
+                                </div>
+                                <small class="d-block text-muted mt-1">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Gemini AI generates realistic business data with intelligent insights and scoring
+                                    </small>
+                            </div>
+                        </div>
+                        
+                        <form id="leadForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="category" class="form-label">Business Category</label>
+                                    <select class="form-select" id="category" required>
+                                        <option value="">Select Category</option>
+                                        <!-- Categories will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="city" class="form-label">City</label>
+                                    <select class="form-select" id="city" required>
+                                        <option value="">Select City</option>
+                                        <!-- Cities will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="targetCount" class="form-label">Target Lead Count</label>
+                                    <input type="number" class="form-control" id="targetCount" value="100" min="10" max="500" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-primary w-100" id="generateLeadsBtn">
+                                        <i class="fas fa-gem me-2"></i>
+                                        <span id="generateBtnText">Generate Gemini Leads</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Campaign Generation -->
+        <div class="row mb-4" id="aiCampaignSection" style="display: none;">
+            <div class="col-lg-8 mx-auto">
+                <div class="card feature-card border-success">
+                    <div class="card-header bg-success text-white text-center">
+                        <h5 class="mb-0">
+                            <i class="fas fa-envelope-open-text me-2"></i>
+                            AI-Powered Email Campaign
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="campaignName" class="form-label">Campaign Name</label>
+                                <input type="text" class="form-control" id="campaignName" placeholder="e.g., Tech_Karachi_AI_Campaign">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="button" class="btn btn-success w-100" id="generateAICampaignBtn">
+                                    <i class="fas fa-magic me-2"></i>
+                                    Generate AI Campaign
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Insights Panel -->
+        <div class="row mb-4" id="aiInsightsPanel" style="display: none;">
+            <div class="col-12">
+                <div class="card feature-card border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-line me-2"></i>
+                            AI Insights & Analytics
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <h3 class="text-primary mb-1" id="highPriorityCount">0</h3>
+                                    <small class="text-muted">High Priority</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <h3 class="text-warning mb-1" id="mediumPriorityCount">0</h3>
+                                    <small class="text-muted">Medium Priority</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <h3 class="text-secondary mb-1" id="lowPriorityCount">0</h3>
+                                    <small class="text-muted">Low Priority</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-center mb-3">
+                                <div class="p-3 bg-light rounded">
+                                    <h3 class="text-success mb-1" id="avgLeadScore">0.0</h3>
+                                    <small class="text-muted">Avg Lead Score</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <button type="button" class="btn btn-outline-info btn-sm" id="getAIInsightsBtn">
+                                    <i class="fas fa-lightbulb me-2"></i>
+                                    Get Detailed AI Insights
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <button class="btn btn-success me-3" id="generateEmailsBtn" disabled>
+                    <i class="fas fa-envelope me-2"></i>
+                    Generate Emails
+                </button>
+                <button class="btn btn-warning me-3" id="sendEmailsBtn" disabled>
+                    <i class="fas fa-paper-plane me-2"></i>
+                    Send Emails
+                </button>
+                <button class="btn btn-info me-3" id="testConnectionBtn">
+                    <i class="fas fa-plug me-2"></i>
+                    Test Connections
+                </button>
+                <button class="btn btn-secondary" id="clearSessionBtn">
+                    <i class="fas fa-trash me-2"></i>
+                    Clear Session
+                </button>
+            </div>
+        </div>
+
+        <!-- Data Tables -->
+        <div class="row">
+            <!-- Leads Table -->
+            <div class="col-lg-6 mb-4">
+                <div class="card feature-card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-users me-2"></i>
+                            Generated Leads
+                            <span class="badge bg-light text-dark ms-2" id="leadsBadge">0</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-striped" id="leadsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Type</th>
+                                        <th>City</th>
+                                        <th>AI Score</th>
+                                        <th>Priority</th>
+                                        <th>Insights</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leadsTableBody">
+                                    <tr>
+                                        <td colspan="7" class="text-center text-muted">No leads generated yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emails Table -->
+            <div class="col-lg-6 mb-4">
+                <div class="card feature-card">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0">
+                            <i class="fas fa-envelope me-2"></i>
+                            Generated Emails
+                            <span class="badge bg-light text-dark ms-2" id="emailsBadge">0</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-striped" id="emailsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Business</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="emailsTableBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">No emails generated yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaign Results -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card feature-card">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            Campaign Results
+                            <span class="badge bg-light text-dark ms-2" id="resultsBadge">0</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table class="table table-striped" id="resultsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Business</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="resultsTableBody">
+                                    <tr>
+                                        <td colspan="4" class="text-center text-muted">No campaign results yet</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Preview Modal -->
+    <div class="modal fade" id="emailPreviewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Email Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="emailPreviewContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loadingSpinner">
+        <div class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background: rgba(0,0,0,0.5); z-index: 9999;">
+            <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Global variables
+        let currentLeads = [];
+        let currentEmails = [];
+        let currentResults = [];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Page loaded, initializing...');
+            
+            // Populate dropdowns
+            populateDropdowns();
+            
+            // Load initial data
+            loadData();
+            
+            // Load campaign statistics
+            loadCampaignStats();
+        });
+
+        // Populate dropdowns with categories and cities
+        function populateDropdowns() {
+            fetch('/api/get_categories')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const categorySelect = document.getElementById('category');
+                        categorySelect.innerHTML = '<option value="">Select Category</option>';
+                        
+                        data.categories.forEach(category => {
+                            const option = document.createElement('option');
+                            option.value = category;
+                            option.textContent = category;
+                            categorySelect.appendChild(option);
+                        });
+                        
+                        document.getElementById('categoryCount').textContent = data.count;
+                        console.log(`✅ Loaded ${data.count} categories`);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading categories:', error);
+                    showAlert('Error loading categories', 'danger');
+                });
+
+            fetch('/api/get_cities')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const citySelect = document.getElementById('city');
+                        citySelect.innerHTML = '<option value="">Select City</option>';
+                        
+                        data.cities.forEach(city => {
+                            const option = document.createElement('option');
+                            option.value = city;
+                            option.textContent = city;
+                            citySelect.appendChild(option);
+                        });
+                        
+                        document.getElementById('cityCount').textContent = data.count;
+                        console.log(`✅ Loaded ${data.count} cities`);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading cities:', error);
+                    showAlert('Error loading cities', 'danger');
+                });
+        }
+
+        // Load all data
+        function loadData() {
+            loadLeads();
+            loadEmails();
+            loadResults();
+        }
+
+        // Load leads
+        function loadLeads() {
+            fetch('/api/get_leads')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentLeads = data.leads;
+                        updateLeadsTable();
+                        document.getElementById('leadsCount').textContent = data.count;
+                        document.getElementById('leadsBadge').textContent = data.count;
+                        
+                        // Enable/disable buttons based on data
+                        document.getElementById('generateEmailsBtn').disabled = data.count === 0;
+                        
+                        console.log(`✅ Loaded ${data.count} leads`);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading leads:', error);
+                    showAlert('Error loading leads', 'danger');
+                });
+        }
+
+        // Load emails
+        function loadEmails() {
+            fetch('/api/get_emails')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentEmails = data.emails;
+                        updateEmailsTable();
+                        document.getElementById('emailsCount').textContent = data.count;
+                        document.getElementById('emailsBadge').textContent = data.count;
+                        
+                        // Enable/disable buttons based on data
+                        document.getElementById('sendEmailsBtn').disabled = data.count === 0;
+                        
+                        console.log(`✅ Loaded ${data.count} emails`);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading emails:', error);
+                    showAlert('Error loading emails', 'danger');
+                });
+        }
+
+        // Load results
+        function loadResults() {
+            fetch('/api/get_results')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        currentResults = data.results;
+                        updateResultsTable();
+                        document.getElementById('resultsBadge').textContent = data.count;
+                        console.log(`✅ Loaded ${data.count} results`);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading results:', error);
+                    showAlert('Error loading results', 'danger');
+                });
+        }
+
+        // Load campaign statistics
+        function loadCampaignStats() {
+            fetch('/api/get_statistics')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateCampaignStats(data.campaign_stats);
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Error loading statistics:', error);
+                });
+        }
+
+        // Update leads table
+        function updateLeadsTable() {
+            const tbody = document.getElementById('leadsTableBody');
+            
+            if (currentLeads.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No leads generated yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            currentLeads.forEach(lead => {
+                // Get AI insights if available
+                const aiScore = lead.lead_score ? lead.lead_score.toFixed(3) : 'N/A';
+                const priority = lead.priority_level || 'N/A';
+                const insights = lead.ai_insights ? lead.ai_insights.slice(0, 2).join('; ') : 'N/A';
+                
+                // Priority badge styling
+                let priorityBadge = priority;
+                if (priority === 'High') {
+                    priorityBadge = '<span class="badge bg-danger">High</span>';
+                } else if (priority === 'Medium') {
+                    priorityBadge = '<span class="badge bg-warning">Medium</span>';
+                } else if (priority === 'Low') {
+                    priorityBadge = '<span class="badge bg-secondary">Low</span>';
+                }
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${lead.name || 'N/A'}</td>
+                    <td>${lead.email || 'N/A'}</td>
+                    <td>${lead.business_type || 'N/A'}</td>
+                    <td>${lead.city || 'N/A'}</td>
+                    <td><span class="badge bg-info">${aiScore}</span></td>
+                    <td>${priorityBadge}</td>
+                    <td><small class="text-muted">${insights}</small></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Update emails table
+        function updateEmailsTable() {
+            const tbody = document.getElementById('emailsTableBody');
+            
+            if (currentEmails.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No emails generated yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            currentEmails.forEach(email => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${email.business_name || 'N/A'}</td>
+                    <td>${email.email || 'N/A'}</td>
+                    <td><span class="badge bg-${email.status === 'generated' ? 'success' : 'warning'}">${email.status}</span></td>
+                    <td><button class="btn btn-sm btn-outline-primary" onclick="previewEmail('${email.business_name}', '${email.generated_email}')">Preview</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Update results table
+        function updateResultsTable() {
+            const tbody = document.getElementById('resultsTableBody');
+            
+            if (currentResults.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No campaign results yet</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            currentResults.forEach(result => {
+                const statusClass = result.status === 'sent' ? 'success' : 
+                                  result.status === 'failed' ? 'danger' : 'warning';
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${result.business_name || 'N/A'}</td>
+                    <td>${result.email || 'N/A'}</td>
+                    <td><span class="badge bg-${statusClass}">${result.status}</span></td>
+                    <td>${result.message || 'N/A'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // Update campaign statistics
+        function updateCampaignStats(stats) {
+            const statsDiv = document.getElementById('campaignStats');
+            if (stats && Object.keys(stats).length > 0) {
+                statsDiv.innerHTML = `
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h6>${stats.total_campaigns || 0}</h6>
+                            <small>Campaigns</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>${stats.total_leads_generated || 0}</h6>
+                            <small>Total Leads</small>
+                        </div>
+                    </div>
+                    <div class="row text-center mt-2">
+                        <div class="col-6">
+                            <h6>${stats.total_emails_sent || 0}</h6>
+                            <small>Emails Sent</small>
+                        </div>
+                        <div class="col-6">
+                            <h6>${stats.success_rate || 0}%</h6>
+                            <small>Success Rate</small>
+                        </div>
+                    </div>
+                `;
+            } else {
+                statsDiv.innerHTML = '<p class="text-muted">No campaign data yet</p>';
+            }
+        }
+
+        // Preview email
+        function previewEmail(businessName, emailContent) {
+            document.getElementById('emailPreviewContent').innerHTML = `
+                <h6>To: ${businessName}</h6>
+                <hr>
+                <pre style="white-space: pre-wrap; font-family: inherit;">${emailContent}</pre>
+            `;
+            
+            const modal = new bootstrap.Modal(document.getElementById('emailPreviewModal'));
+            modal.show();
+        }
+
+        // Show alert
+        function showAlert(message, type = 'info') {
+            const alertContainer = document.getElementById('alertContainer');
+            const alertId = 'alert-' + Date.now();
+            
+            const alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" id="${alertId}" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+            
+            alertContainer.insertAdjacentHTML('beforeend', alertHtml);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                const alert = document.getElementById(alertId);
+                if (alert) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        // Show loading
+        function showLoading() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+        }
+
+        // Hide loading
+        function hideLoading() {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+
+        // Event Listeners
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateLeads();
+        });
+
+        document.getElementById('generateEmailsBtn').addEventListener('click', generateEmails);
+        document.getElementById('sendEmailsBtn').addEventListener('click', sendEmails);
+        document.getElementById('testConnectionBtn').addEventListener('click', testConnections);
+        document.getElementById('clearSessionBtn').addEventListener('click', clearSession);
+        
+        // AI Toggle functionality
+        document.getElementById('aiToggle').addEventListener('change', function() {
+            const useAI = this.checked;
+            const generateBtnText = document.getElementById('generateBtnText');
+            const generateBtn = document.getElementById('generateLeadsBtn');
+            
+            if (useAI) {
+                generateBtnText.textContent = 'Generate AI Leads';
+                generateBtn.className = 'btn btn-primary w-100';
+                showAlert('AI-powered generation enabled! 🧠', 'info');
+            } else {
+                generateBtnText.textContent = 'Generate Basic Leads';
+                generateBtn.className = 'btn btn-secondary w-100';
+                showAlert('Basic generation mode enabled', 'info');
+            }
+        });
+        
+        // AI Campaign generation
+        document.getElementById('generateAICampaignBtn').addEventListener('click', generateGeminiCampaign);
+        
+        // Get AI insights
+        document.getElementById('getAIInsightsBtn').addEventListener('click', getDetailedAIInsights);
+
+        // Generate leads
+        function generateLeads() {
+            const category = document.getElementById('category').value;
+            const city = document.getElementById('city').value;
+            const targetCount = document.getElementById('targetCount').value;
+            const useAI = document.getElementById('aiToggle').checked;
+            
+            if (!category || !city) {
+                showAlert('Please select both category and city', 'warning');
+                return;
+            }
+            
+            showLoading();
+            
+            fetch('/api/generate_leads', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    category: category,
+                    city: city,
+                    target_count: parseInt(targetCount),
+                    use_ai: useAI
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    
+                    // Show AI insights if AI was used
+                    if (data.generation_type === 'ai_powered' && data.ai_insights) {
+                        showAIInsights(data.ai_insights);
+                        document.getElementById('aiInsightsPanel').style.display = 'block';
+                        document.getElementById('aiCampaignSection').style.display = 'block';
+                    } else {
+                        document.getElementById('aiInsightsPanel').style.display = 'none';
+                        document.getElementById('aiCampaignSection').style.display = 'none';
+                    }
+                    
+                    loadData();
+                    loadCampaignStats();
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error generating leads:', error);
+                showAlert('Error generating leads', 'danger');
+            });
+        }
+
+        // Generate emails
+        function generateEmails() {
+            showLoading();
+            
+            fetch('/api/generate_emails', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    loadData();
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error generating emails:', error);
+                showAlert('Error generating emails', 'danger');
+            });
+        }
+
+        // Send emails
+        function sendEmails() {
+            if (!confirm('Are you sure you want to send emails to all generated leads? This action cannot be undone.')) {
+                return;
+            }
+            
+            showLoading();
+            
+            fetch('/api/send_emails', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    loadData();
+                    loadCampaignStats();
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error sending emails:', error);
+                showAlert('Error sending emails', 'danger');
+            });
+        }
+
+        // Test connections
+        function testConnections() {
+            showLoading();
+            
+            fetch('/api/test_connection')
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    let message = 'Connection test results:\n';
+                    Object.entries(data.test_results).forEach(([service, result]) => {
+                        message += `\n${service}: ${result.status} - ${result.message}`;
+                    });
+                    showAlert(message, 'info');
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error testing connections:', error);
+                showAlert('Error testing connections', 'danger');
+            });
+        }
+
+        // Clear session
+        function clearSession() {
+            if (!confirm('Are you sure you want to clear all session data? This will remove all leads, emails, and results for this session.')) {
+                return;
+            }
+            
+            showLoading();
+            
+            fetch('/api/clear_session')
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    loadData();
+                    loadCampaignStats();
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error clearing session:', error);
+                showAlert('Error clearing session', 'danger');
+            });
+        }
+        
+        // Show AI insights
+        function showAIInsights(insights) {
+            document.getElementById('highPriorityCount').textContent = insights.high_priority || 0;
+            document.getElementById('mediumPriorityCount').textContent = insights.medium_priority || 0;
+            document.getElementById('lowPriorityCount').textContent = insights.low_priority || 0;
+            document.getElementById('avgLeadScore').textContent = insights.average_lead_score || '0.0';
+        }
+        
+        // Generate Gemini campaign
+        function generateGeminiCampaign() {
+            const category = document.getElementById('category').value;
+            const city = document.getElementById('city').value;
+            const targetCount = document.getElementById('targetCount').value;
+            
+            if (!category || !city) {
+                showAlert('Please select both category and city', 'warning');
+                return;
+            }
+            
+            showLoading();
+            
+            fetch('/api/generate_gemini_campaign', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    category: category,
+                    city: city,
+                    target_count: parseInt(targetCount)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    showAlert(data.message, 'success');
+                    
+                    // Show email templates
+                    if (data.email_templates && data.email_templates.length > 0) {
+                        let templates = 'Generated Email Templates:\n\n';
+                        data.email_templates.forEach((template, index) => {
+                            templates += `${index + 1}. Subject: ${template.subject}\n`;
+                            templates += `   Body: ${template.body}\n\n`;
+                        });
+                        showAlert(templates, 'info');
+                    }
+                    
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error generating Gemini campaign:', error);
+                showAlert('Error generating Gemini campaign', 'danger');
+            });
+        }
+        
+        // Get detailed Gemini insights
+        function getDetailedGeminiInsights() {
+            showLoading();
+            
+            fetch('/api/get_gemini_insights', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideLoading();
+                
+                if (data.success) {
+                    const insights = data.insights;
+                    let insightsMessage = `Gemini AI Insights Summary:\n\n`;
+                    insightsMessage += `Total Leads: ${insights.total_leads}\n`;
+                    insightsMessage += `Verified Leads: ${insights.verified_leads}\n`;
+                    insightsMessage += `Verification Rate: ${insights.verification_rate}%\n\n`;
+                    
+                    if (insights.categories && insights.categories.length > 0) {
+                        insightsMessage += `Categories: ${insights.categories.join(', ')}\n`;
+                    }
+                    
+                    if (insights.cities && insights.cities.length > 0) {
+                        insightsMessage += `Cities: ${insights.cities.join(', ')}\n`;
+                    }
+                    
+                    if (insights.generation_stats) {
+                        insightsMessage += `\nGeneration Stats:\n`;
+                        insightsMessage += `• Type: ${insights.generation_stats.generator_type}\n`;
+                        insightsMessage += `• Model: ${insights.generation_stats.model_used}\n`;
+                        insightsMessage += `• Status: ${insights.generation_stats.status}\n`;
+                    }
+                    
+                    showAlert(insightsMessage, 'info');
+                } else {
+                    showAlert(data.message, 'danger');
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                console.error('❌ Error getting Gemini insights:', error);
+                showAlert('Error getting Gemini insights', 'danger');
+            });
+        }
+    </script>
+</body>
+</html>
