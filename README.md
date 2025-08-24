@@ -58,16 +58,9 @@ The Reviu.pk Lead Generation System features a modern, intuitive web dashboard t
 - **Professional Icons**: Intuitive visual indicators for all functions
 
 ### **Dashboard Screenshot**
-> **📸 Dashboard Preview Available**
-> 
-> The system features a modern, intuitive web dashboard with:
-> - **Purple gradient header** with white content cards
-> - **Real-time metrics display** showing leads, emails, and success rates
-> - **Interactive data tables** for leads, emails, and campaign results
-> - **Action buttons** for generating leads, emails, and sending campaigns
-> - **Responsive design** optimized for all devices
->
-> *For a visual preview, run the application and visit `http://localhost:5000`*
+![Reviu.pk Lead Generation System Dashboard](image.jpeg)
+
+*The dashboard shows the complete lead generation workflow with real-time metrics, data tables, and action controls.*
 
 **Dashboard Features:**
 - 🎯 **Lead Generation Form**: Category selection, city picker, target count input
